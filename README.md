@@ -55,6 +55,12 @@ pnpm install
 4. Click "Load unpacked"
 5. Select the `dist/` directory
 
+### Chrome Web Store upload
+
+Upload `package.zip` or a release asset named
+`github-timestamp-revealer-vX.Y.Z.zip`. Do not upload source archives or the
+repository directory; Chrome Web Store expects `manifest.json` at the zip root.
+
 ### Tech Stack
 
 - **TypeScript**

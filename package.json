@@ -14,7 +14,7 @@
     "vitest": "4.1.8"
   },
   "name": "github-timestamp-revealer",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "index.js",
   "repository": "https://github.com/mkusaka/github-timestamp-revealer.git",
   "author": "mkusaka <hinoshita1992@gmail.com>",

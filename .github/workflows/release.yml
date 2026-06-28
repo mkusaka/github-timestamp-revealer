@@ -35,12 +35,6 @@ jobs:
       - name: Create release package
         run: |
           mv package.zip github-timestamp-revealer-v${{ steps.version.outputs.version }}.zip
-
-          zip -r github-timestamp-revealer-source-v${{ steps.version.outputs.version }}.zip . \
-            -x "*.git*" \
-            -x "*node_modules*" \
-            -x "*release-package*" \
-            -x "*.zip"
       - name: Generate release notes
         id: release_notes
         env:
@@ -83,8 +77,7 @@ jobs:
           gh release create "$RELEASE_TAG" \
             --title "Release $RELEASE_TAG" \
             --notes-file release_notes.md \
-            "github-timestamp-revealer-v${RELEASE_VERSION}.zip" \
-            "github-timestamp-revealer-source-v${RELEASE_VERSION}.zip"
+            "github-timestamp-revealer-v${RELEASE_VERSION}.zip"
       - name: Upload Release Assets Summary
         env:
           RELEASE_TAG: ${{ github.ref_name }}
@@ -98,7 +91,6 @@ jobs:
             echo ""
             echo "**Assets:**"
             echo "- \`github-timestamp-revealer-v${RELEASE_VERSION}.zip\` - Chrome Extension package"
-            echo "- \`github-timestamp-revealer-source-v${RELEASE_VERSION}.zip\` - Source code"
           } >> "$GITHUB_STEP_SUMMARY"
     permissions:
       contents: write
