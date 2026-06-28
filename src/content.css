@@ -13,9 +13,11 @@ span[data-testid="push-date"] .github-timestamp-revealer-absolute {
   display: block;
   line-height: 1.4;
   margin-inline-start: 0;
-  max-width: 15.2ch;
-  overflow: hidden;
-  text-overflow: clip;
+  max-width: 100%;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  word-break: normal;
 }
 
 span:has(> .octicon-calendar) .github-timestamp-revealer-absolute {

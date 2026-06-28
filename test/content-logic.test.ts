@@ -25,6 +25,10 @@ describe("timestamp revealer", () => {
     );
     expect(absoluteTimestamp).toHaveClass(ABSOLUTE_TIMESTAMP_CLASS);
     expect(absoluteTimestamp).toHaveAttribute("aria-hidden", "true");
+    expect(absoluteTimestamp).toHaveAttribute(
+      "title",
+      "Jun 28, 2026, 10:30 AM GMT+9",
+    );
   });
 
   it("formats datetime attributes when a title is not available", () => {

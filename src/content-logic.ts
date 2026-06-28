@@ -167,6 +167,7 @@ export const revealTimestampElement = (
     if (existing.textContent !== renderedText) {
       existing.textContent = renderedText;
     }
+    existing.setAttribute("title", timestampText);
     return false;
   }
 
@@ -174,6 +175,7 @@ export const revealTimestampElement = (
   absoluteTimestamp.className = ABSOLUTE_TIMESTAMP_CLASS;
   absoluteTimestamp.textContent = renderedText;
   absoluteTimestamp.setAttribute("aria-hidden", "true");
+  absoluteTimestamp.setAttribute("title", timestampText);
   element.insertAdjacentElement("afterend", absoluteTimestamp);
   return true;
 };
