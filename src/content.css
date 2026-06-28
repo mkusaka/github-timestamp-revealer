@@ -1,0 +1,26 @@
+.github-timestamp-revealer-absolute {
+  color: var(--fgColor-muted, var(--color-fg-muted, #57606a));
+  font-size: 90%;
+  font-variant-numeric: tabular-nums;
+  margin-inline-start: 0.5ch;
+  white-space: nowrap;
+}
+
+.notifications-list-item .github-timestamp-revealer-absolute,
+.react-last-commit-oid-timestamp .github-timestamp-revealer-absolute,
+.react-directory-commit-age .github-timestamp-revealer-absolute,
+span[data-testid="push-date"] .github-timestamp-revealer-absolute {
+  display: block;
+  line-height: 1.4;
+  margin-inline-start: 0;
+  max-width: 15.2ch;
+  overflow: hidden;
+  text-overflow: clip;
+}
+
+span:has(> .octicon-calendar) .github-timestamp-revealer-absolute {
+  display: inline-block;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
