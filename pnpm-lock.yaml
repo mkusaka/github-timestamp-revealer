@@ -22,9 +22,6 @@ importers:
       "@vitest/ui":
         specifier: 4.1.8
         version: 4.1.8(vitest@4.1.8)
-      "@webext-core/fake-browser":
-        specifier: 1.5.2
-        version: 1.5.2
       happy-dom:
         specifier: 20.10.2
         version: 20.10.2
@@ -792,12 +789,6 @@ packages:
         integrity: sha512-vf2YFi1iY9lHGwNJMs01biZFbKJkrZR1T6/MlzjhJLPdntOHLhTrDSnSVcdtvjihi4VQNlrFRIxLsDBlQpAipA==,
       }
 
-  "@types/webextension-polyfill@0.12.5":
-    resolution:
-      {
-        integrity: sha512-uKSAv6LgcVdINmxXMKBuVIcg/2m5JZugoZO8x20g7j2bXJkPIl/lVGQcDlbV+aXAiTyXT2RA5U5mI4IGCDMQeg==,
-      }
-
   "@types/whatwg-mimetype@3.0.2":
     resolution:
       {
@@ -872,12 +863,6 @@ packages:
     resolution:
       {
         integrity: sha512-CqTpxOlUCPWRNUPZDxT5v2NnHXA4oox612iUGnmTUGQFhZ1Gkj8kirtl/2wcF6MqX7+PqqicZzOCBKKfIn0dww==,
-      }
-
-  "@webext-core/fake-browser@1.5.2":
-    resolution:
-      {
-        integrity: sha512-nkDQwOJ23X5Q7cEtN6LRuBtVFf1KVOFi5GoQAro0lzqdh59F5E+K350j1isbnqYbzsXRh1NJtboudIcHfZtvOQ==,
       }
 
   acorn-walk@8.3.5:
@@ -1285,12 +1270,6 @@ packages:
         integrity: sha512-NXYBzinNrblfraPGyrbPoD19C1h9lfI/1mzgWYvXUTe414Gz/X1FD2XBZSZM7rRTrMA8JL3OtAaGifrIKhQ5yQ==,
       }
     engines: { node: ">= 12.0.0" }
-
-  lodash.merge@4.6.2:
-    resolution:
-      {
-        integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==,
-      }
 
   lz-string@1.5.0:
     resolution:
@@ -1958,8 +1937,6 @@ snapshots:
     dependencies:
       undici-types: 8.3.0
 
-  "@types/webextension-polyfill@0.12.5": {}
-
   "@types/whatwg-mimetype@3.0.2": {}
 
   "@types/ws@8.18.1":
@@ -2019,11 +1996,6 @@ snapshots:
       tinyrainbow: 3.1.0
 
   "@webcomponents/custom-elements@1.6.0": {}
-
-  "@webext-core/fake-browser@1.5.2":
-    dependencies:
-      "@types/webextension-polyfill": 0.12.5
-      lodash.merge: 4.6.2
 
   acorn-walk@8.3.5:
     dependencies:
@@ -2236,8 +2208,6 @@ snapshots:
       lightningcss-win32-arm64-msvc: 1.32.0
       lightningcss-win32-x64-msvc: 1.32.0
     optional: true
-
-  lodash.merge@4.6.2: {}
 
   lz-string@1.5.0: {}
 

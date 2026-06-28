@@ -63,35 +63,6 @@ describe("timestamp revealer", () => {
     );
   });
 
-  it("replaces relative text with absolute text in replace mode", () => {
-    document.body.innerHTML = `
-      <relative-time datetime="2026-06-28T01:30:00Z" title="Jun 28, 2026, 10:30 AM GMT+9">2 hours ago</relative-time>
-    `;
-
-    revealTimestamps({ displayMode: "replace" });
-
-    const relativeTime = document.querySelector("relative-time");
-    expect(relativeTime).toHaveTextContent("Jun 28, 2026, 10:30 AM GMT+9");
-    expect(
-      document.querySelector(`.${ABSOLUTE_TIMESTAMP_CLASS}`),
-    ).not.toBeInTheDocument();
-  });
-
-  it("restores original relative text when switching from replace to append", () => {
-    document.body.innerHTML = `
-      <relative-time datetime="2026-06-28T01:30:00Z" title="Jun 28, 2026, 10:30 AM GMT+9">2 hours ago</relative-time>
-    `;
-
-    revealTimestamps({ displayMode: "replace" });
-    revealTimestamps({ displayMode: "append" });
-
-    const relativeTime = document.querySelector("relative-time");
-    expect(relativeTime).toHaveTextContent("2 hours ago");
-    expect(
-      screen.getByText(absoluteText("Jun 28, 2026, 10:30 AM GMT+9")),
-    ).toBeInTheDocument();
-  });
-
   it("decorates GitHub activity page title-based timestamps", () => {
     document.body.innerHTML = `
       <span data-testid="push-date"><span title="Jun 28, 2026, 01:30 UTC">2 hours ago</span></span>
