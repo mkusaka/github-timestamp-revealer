@@ -12,6 +12,11 @@ export default defineManifest({
     48: "icons/icon-48.png",
     128: "icons/icon-128.png",
   },
+  permissions: ["storage"],
+  options_ui: {
+    page: "src/options.html",
+    open_in_tab: false,
+  },
   content_scripts: [
     {
       matches: ["https://github.com/*"],

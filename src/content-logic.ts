@@ -1,6 +1,14 @@
+import {
+  DEFAULT_DISPLAY_MODE,
+  getTimestampRevealerSettings,
+  onTimestampDisplayModeChanged,
+  type TimestampDisplayMode,
+} from "./settings";
+
 export const ABSOLUTE_TIMESTAMP_CLASS = "github-timestamp-revealer-absolute";
 
 const DECORATED_ATTRIBUTE = "data-github-timestamp-revealer-decorated";
+const ORIGINAL_TEXT_ATTRIBUTE = "data-github-timestamp-revealer-original-text";
 const TARGET_SELECTOR = [
   "relative-time",
   "time-ago",
@@ -14,11 +22,14 @@ type FormatDateTime = (date: Date) => string;
 export interface RevealTimestampsOptions {
   root?: ParentNode;
   formatDateTime?: FormatDateTime;
+  displayMode?: TimestampDisplayMode;
 }
 
 let observer: MutationObserver | null = null;
 let revealTimer: number | null = null;
 let removeNavigationListeners: (() => void) | null = null;
+let removeSettingsChangeListener: (() => void) | null = null;
+let currentDisplayMode: TimestampDisplayMode = DEFAULT_DISPLAY_MODE;
 
 export const formatAbsoluteDateTime: FormatDateTime = (date) =>
   new Intl.DateTimeFormat(undefined, {
@@ -99,9 +110,25 @@ const findExistingAbsoluteTimestamp = (element: Element) => {
 
 const renderAbsoluteTimestamp = (text: string) => `(${text})`;
 
+const storeOriginalTimestampText = (element: Element) => {
+  if (element.hasAttribute(ORIGINAL_TEXT_ATTRIBUTE)) return;
+
+  element.setAttribute(ORIGINAL_TEXT_ATTRIBUTE, element.textContent ?? "");
+};
+
+const restoreOriginalTimestampText = (element: Element) => {
+  const originalText = element.getAttribute(ORIGINAL_TEXT_ATTRIBUTE);
+  if (originalText === null) return;
+
+  if (element.textContent !== originalText) {
+    element.textContent = originalText;
+  }
+};
+
 export const revealTimestampElement = (
   element: Element,
   formatDateTime: FormatDateTime = formatAbsoluteDateTime,
+  displayMode: TimestampDisplayMode = currentDisplayMode,
 ) => {
   if (element.classList.contains(ABSOLUTE_TIMESTAMP_CLASS)) {
     return false;
@@ -112,12 +139,29 @@ export const revealTimestampElement = (
 
   if (!timestampText) {
     existing?.remove();
+    restoreOriginalTimestampText(element);
     element.removeAttribute(DECORATED_ATTRIBUTE);
     return false;
   }
 
-  const renderedText = renderAbsoluteTimestamp(timestampText);
   element.setAttribute(DECORATED_ATTRIBUTE, "true");
+
+  if (displayMode === "replace") {
+    const didHaveExistingAppend = existing !== null;
+    existing?.remove();
+    storeOriginalTimestampText(element);
+
+    if (element.textContent !== timestampText) {
+      element.textContent = timestampText;
+      return true;
+    }
+
+    return didHaveExistingAppend;
+  }
+
+  restoreOriginalTimestampText(element);
+
+  const renderedText = renderAbsoluteTimestamp(timestampText);
 
   if (existing) {
     if (existing.textContent !== renderedText) {
@@ -146,10 +190,11 @@ const getTimestampTargets = (root: ParentNode) => {
 
 export const revealTimestamps = (options: RevealTimestampsOptions = {}) => {
   const root = options.root ?? document;
+  const displayMode = options.displayMode ?? currentDisplayMode;
   let revealedCount = 0;
 
   for (const element of getTimestampTargets(root)) {
-    if (revealTimestampElement(element, options.formatDateTime)) {
+    if (revealTimestampElement(element, options.formatDateTime, displayMode)) {
       revealedCount += 1;
     }
   }
@@ -197,6 +242,14 @@ export const setupObserver = () => {
         return true;
       }
 
+      if (
+        mutation.type === "characterData" &&
+        mutation.target.parentElement &&
+        isTimestampTarget(mutation.target.parentElement)
+      ) {
+        return true;
+      }
+
       return Array.from(mutation.addedNodes).some(nodeMayContainTimestamp);
     });
 
@@ -208,6 +261,7 @@ export const setupObserver = () => {
   observer.observe(document.body, {
     attributes: true,
     attributeFilter: ["datetime", "title"],
+    characterData: true,
     childList: true,
     subtree: true,
   });
@@ -218,6 +272,18 @@ export const initializeTimestampRevealer = () => {
 
   revealTimestamps();
   setupObserver();
+
+  void getTimestampRevealerSettings().then(({ displayMode }) => {
+    currentDisplayMode = displayMode;
+    revealTimestamps();
+  });
+
+  removeSettingsChangeListener = onTimestampDisplayModeChanged(
+    (displayMode) => {
+      currentDisplayMode = displayMode;
+      revealTimestamps();
+    },
+  );
 
   const handleNavigation = () => {
     revealTimestamps();
@@ -247,5 +313,8 @@ export const initializeTimestampRevealer = () => {
 export const cleanupTimestampRevealer = () => {
   cleanupObserver();
   removeNavigationListeners?.();
+  removeSettingsChangeListener?.();
   removeNavigationListeners = null;
+  removeSettingsChangeListener = null;
+  currentDisplayMode = DEFAULT_DISPLAY_MODE;
 };

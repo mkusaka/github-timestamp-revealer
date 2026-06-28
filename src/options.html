@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub Timestamp Revealer Options</title>
+    <script type="module" src="./options.ts"></script>
+  </head>
+  <body>
+    <main class="options-shell">
+      <header>
+        <img src="/icons/icon-48.png" alt="" width="40" height="40" />
+        <div>
+          <h1>GitHub Timestamp Revealer</h1>
+          <p>Choose how absolute timestamps appear on GitHub.</p>
+        </div>
+      </header>
+
+      <section class="settings-panel" aria-labelledby="display-mode-heading">
+        <h2 id="display-mode-heading">Display mode</h2>
+        <fieldset>
+          <legend class="sr-only">Timestamp display mode</legend>
+          <label>
+            <input type="radio" name="timestamp-display-mode" value="append" />
+            <span>
+              <strong>Append</strong>
+              <small
+                >Keep the relative label and add the absolute timestamp.</small
+              >
+            </span>
+          </label>
+          <label>
+            <input type="radio" name="timestamp-display-mode" value="replace" />
+            <span>
+              <strong>Replace</strong>
+              <small>Show only the absolute timestamp.</small>
+            </span>
+          </label>
+        </fieldset>
+      </section>
+    </main>
+  </body>
+</html>

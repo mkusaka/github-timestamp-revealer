@@ -13,6 +13,7 @@ GitHub's `title` or `datetime` metadata.
   and `time[datetime]` elements
 - Supports GitHub activity page timestamp spans that expose absolute dates via
   `title`
+- Includes an options page for choosing append or replace display mode
 - Follows GitHub SPA navigation through pjax / Turbo events
 - Observes dynamically inserted timestamps
 
@@ -54,6 +55,13 @@ pnpm install
 3. Enable "Developer mode"
 4. Click "Load unpacked"
 5. Select the `dist/` directory
+
+### Options
+
+Open the extension options page to choose how timestamps are displayed:
+
+- `Append`: keep the relative label and add the absolute timestamp
+- `Replace`: show only the absolute timestamp
 
 ### Chrome Web Store upload
 
