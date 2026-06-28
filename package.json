@@ -9,7 +9,7 @@
     "oxlint": "1.68.0",
     "prettier": "3.8.3",
     "typescript": "6.0.3",
-    "vite": "7.3.5",
+    "vite": "8.1.0",
     "vitest": "4.1.8"
   },
   "name": "github-timestamp-revealer",
