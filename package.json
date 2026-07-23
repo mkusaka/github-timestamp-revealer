@@ -35,5 +35,5 @@
     "test:coverage": "vitest run --coverage",
     "package": "rm -f package.zip && pnpm build && find dist -name .DS_Store -delete && cd dist && zip -r ../package.zip . -x '*.DS_Store'"
   },
-  "packageManager": "pnpm@11.9.0"
+  "packageManager": "pnpm@11.15.1"
 }
