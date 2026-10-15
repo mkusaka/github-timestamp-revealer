@@ -5,7 +5,7 @@
     "@testing-library/jest-dom": "6.9.1",
     "@types/chrome": "0.1.43",
     "@vitest/ui": "4.1.8",
-    "happy-dom": "20.10.2",
+    "happy-dom": "21.0.1",
     "oxlint": "1.68.0",
     "prettier": "3.8.3",
     "typescript": "6.0.3",
