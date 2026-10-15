@@ -10,7 +10,7 @@
     "prettier": "3.8.3",
     "typescript": "6.0.3",
     "vite": "7.3.5",
-    "vitest": "4.1.8"
+    "vitest": "4.1.11"
   },
   "name": "github-timestamp-revealer",
   "version": "0.1.4",
