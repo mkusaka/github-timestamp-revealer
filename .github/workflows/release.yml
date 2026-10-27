@@ -3,8 +3,10 @@ on:
   push:
     tags:
       - "v*"
-permissions:
-  contents: write
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+permissions: {}
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -42,6 +44,7 @@ jobs:
           RELEASE_TAG: ${{ github.ref_name }}
           RELEASE_TARGET: ${{ github.sha }}
           REPOSITORY: ${{ github.repository }}
+        shell: bash
         run: |
           PREVIOUS_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
 
